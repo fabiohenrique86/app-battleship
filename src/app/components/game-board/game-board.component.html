@@ -1,0 +1,67 @@
+<div class="form-group">
+    <div class="row">
+        <div class="col-lg-12">
+            <label>possible turns: {{turns}}</label>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-lg-12">
+            <label>turns used: {{turnsUsed}}</label>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-lg-12">
+            <button class="btn btn-primary" (click)="saveGame(game)">Save</button>
+        </div>
+    </div>
+</div>
+<div class="form-group" *ngIf="gameOver">
+    <div class="row">
+        <div class="col-lg-12 btn btn-success" *ngIf="game.status == 'Won'">
+            <p>Congratulations, you've won the game!</p>
+        </div>
+        <div class="col-lg-12 btn btn-danger" *ngIf="game.status == 'Lost'">
+            <a class="nav-link text-dark" routerLink="/game-setup">Sorry, you lost it! Try Again.</a>
+        </div>
+    </div>
+</div>
+<div class="form-group has-sea" *ngIf="shotMissed">
+    <div class="row">
+        <div class="col-lg-12">
+            Last move: Ops! You missed a shot!
+        </div>
+    </div>
+</div>
+<div class="form-group has-ship" *ngIf="shotLanded">
+    <div class="row">
+        <div class="col-lg-12">
+            Last move: Great! Shot landed!
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <table class="table table-bordered">
+        <thead class="text-center">
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+            <th>E</th>
+            <th>F</th>
+            <th>G</th>
+            <th>H</th>
+            <th>I</th>
+            <th>J</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of board; let i = index" class="text-center">
+                <td *ngFor="let cell of row; let j = index" class="board-cell" (click)="takeShot(i, j)" [ngClass]="{ 'has-ship': board[i][j].state == 2, 'has-sea': board[i][j].state == 3, 'ship-sunk': board[i][j].state == 4 }">                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
