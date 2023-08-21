@@ -53,11 +53,9 @@ export class GameBoardComponent {
 
       this.board[row][column].state = ShipState.Sea;
       this.turnsUsed++;
+      this.turnsNOk++;
       this.shotMissed = true;
       this.shotLanded = false;
-
-      this.game.overallAccuracy = this.turnsOk / this.turnsUsed;
-
     }
     else if (this.board[row][column].state == ShipState.Ship) {
 
@@ -70,9 +68,7 @@ export class GameBoardComponent {
       if (this.isShipSunk(this.board[row][column].group)) {
         this.markShipAsSunk(this.board[row][column].group);
       }
-
-      this.game.overallAccuracy = this.turnsOk / this.turnsUsed;
-
+      
     }
 
     this.isGameOver();
@@ -80,11 +76,14 @@ export class GameBoardComponent {
 
   public isGameOver(): boolean
   {
+    this.game.overallAccuracy = this.turnsOk / this.turnsUsed;
+    this.game.turnsUsed = this.turnsUsed;
+
     if (this.turnsOk == this.ships)
     {
       this.gameOver = true;
-      this.game.endGame = new Date();
-      this.game.status = "Won";
+      this.game.endGame = new Date();      
+      this.game.status = "Won";      
 
       return true;
     }

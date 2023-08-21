@@ -14,7 +14,6 @@ export class GameListComponent {
 
   constructor(private gameService: GameService) {
     this.games = gameService.getGames();
-    console.log('app-game-list -> this.games', this.games);
   }
 
 }
